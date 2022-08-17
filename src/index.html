@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+      integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <script>
+      const city = "Prague";
+
+      const fetchData = async () => {
+        const weatherData = await axios.get(
+          `/.netlify/functions/fetch-current-weather?city=${city}`
+        );
+
+        console.log(weatherData);
+
+        console.log(
+          "latitude:" + weatherData.data.coord.lat,
+          "longitude:" + weatherData.data.coord.lon,
+          "name:" + weatherData.data.name,
+          "country:" + weatherData.data.sys.country,
+          "icon:" + weatherData.data.weather[0].icon,
+          "date:" + weatherData.data.dt,
+          "temp:" + weatherData.data.main.temp,
+          "main:" + weatherData.data.weather[0].main,
+          "description:" + weatherData.data.weather[0].description
+        );
+
+        document.getElementById("weather").innerHTML =
+          "latitude:" +
+          weatherData.data.coord.lat +
+          "<br>" +
+          "longitude:" +
+          weatherData.data.coord.lon +
+          "<br>" +
+          "name:" +
+          weatherData.data.name +
+          "<br>" +
+          "country:" +
+          weatherData.data.sys.country +
+          "<br>" +
+          "icon:" +
+          weatherData.data.weather[0].icon +
+          "<br>" +
+          "date:" +
+          weatherData.data.dt +
+          "<br>" +
+          "temp:" +
+          weatherData.data.main.temp +
+          "<br>" +
+          "main:" +
+          weatherData.data.weather[0].main +
+          "<br>" +
+          "description:" +
+          weatherData.data.weather[0].description;
+      };
+      window.onload = fetchData;
+    </script>
+
+    <p id="weather"></p>
+
+    <br />
+  </body>
+</html>
